@@ -22,7 +22,7 @@ import { ChangeEvent, useState } from "react"
 import { Textarea } from "@/components/ui/textarea"
 // import GetUserData from "@/app/hooks/getuser-data"
 import { useUploadThing } from "@/lib/uploadthing"
-import findByIdAndUpdate from "@/app/api/update-user/route"
+// import findByIdAndUpdate from "@/app/api/update-user/route"
 import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import ClientOnly from "@/components/ClientOnly"
@@ -89,14 +89,14 @@ function AccountProfile({ user, btnTitle }: dataProps) {
 		}
 
 		// update user profile
-		await findByIdAndUpdate(
-			{
-				name: values.name,
-				profileImage: values.imageSrc,
-				bio: values.bio,
-			},
-			pathname,
-		)
+		// await findByIdAndUpdate(
+		// 	{
+		// 		name: values.name,
+		// 		profileImage: values.imageSrc,
+		// 		bio: values.bio,
+		// 	},
+		// 	pathname,
+		// )
 		if (pathname === "/profiles/edit") {
 			router.back()
 		} else {
