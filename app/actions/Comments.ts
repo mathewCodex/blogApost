@@ -1,5 +1,5 @@
 "use server"
-import prisma from "@/app/prismadb"
+import {prisma} from "@/app/prismadb"
 
 export const getAllComments = async (storyId:string, parentCommentId?:string) => {
     if(!storyId){

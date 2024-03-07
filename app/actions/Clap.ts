@@ -1,5 +1,5 @@
 "use server"
-import prisma from "@/app/prismadb"
+import {prisma} from "@/app/prismadb"
 import { getCurrentUserId } from "./User"
 
 export const ClapCount = async (storyId:string, commentId?:string) => {

@@ -3,7 +3,6 @@ import { Inter } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/context/theme-provider"
 import AuthProvider from "@/context/auth-provider"
-
 import ClientOnly from "@/components/ClientOnly"
 import { Toaster } from "@/components/ui/toaster";
 import { ClerkProvider } from "@clerk/nextjs"
@@ -29,6 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 					<ClientOnly>
 						<Toaster />
+						
 					</ClientOnly>
 					<AuthProvider>{children}</AuthProvider>
 				</ThemeProvider>

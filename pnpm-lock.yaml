@@ -214,6 +214,9 @@ dependencies:
     version: 4.5.0(@types/react@18.0.0)(react@18.0.0)
 
 devDependencies:
+  '@types/medium-editor':
+    specifier: ^5.0.8
+    version: 5.0.8
   '@types/node':
     specifier: ^20
     version: 20.0.0
@@ -2468,6 +2471,10 @@ packages:
   /@types/keygrip@1.0.6:
     resolution: {integrity: sha512-lZuNAY9xeJt7Bx4t4dx0rYCDqGPW8RXhQZK1td7d4H6E9zYbLoOtjBvfwdTKpsyxQI/2jv+armjX/RW+ZNpXOQ==}
     dev: false
+
+  /@types/medium-editor@5.0.8:
+    resolution: {integrity: sha512-8zj+0E1nirrZ8lW6PbKru11z0klAxShLyO2SikbCz4CV1DbdN0gB9hNq99cJS1giEozUEtfhUQ0SDz+VgzeATQ==}
+    dev: true
 
   /@types/mime@1.3.5:
     resolution: {integrity: sha512-/pyBZWSLD2n0dcHE3hq8s8ZvcETHtEuF+3E7XVt0Ig2nvsVQXdghHVcEkIWjy9A0wKfTn97a/PSDYohKIlnP/w==}

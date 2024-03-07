@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { auth } from "@clerk/nextjs";
-import prisma from "@/app/prismadb"
+import {prisma} from "@/app/prismadb"
 
 export async function POST(){
     const {userId} : {userId: string | null} = auth()

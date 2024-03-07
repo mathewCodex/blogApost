@@ -192,7 +192,7 @@ const NewStory = ({storyId, Storycontent}: Props) => {
             )}
         </div>
         <div className={`z-10 ${buttonPosition.top === 0 ? "hidden" :""}`} style={{position:"absolute", top:buttonPosition.top, left:buttonPosition.left}}>
-            <button onClick={() => setOpenTools(!openTools)} id='tooltip' className='border-[1px] border-neutral-500 p-1 rounded-full inline-block'>
+            <button type="button" onClick={() => setOpenTools(!openTools)} id='tooltip' className='border-[1px] border-neutral-500 p-1 rounded-full inline-block'>
                 <Plus className={`duration-300 ease-linear ${openTools ? "rotate-90":""}`}/>
             </button>
             <div id='tool' className={`flex items-center space-x-4 absolute top-0 left-14  ${openTools ? "visible":"invisible"}`} >

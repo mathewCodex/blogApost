@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import prisma from "@/app/prismadb"
+import {prisma} from "@/app/prismadb"
 
 export async function PATCH(request: NextRequest) {
     const {storyId, topics} = await request.json()

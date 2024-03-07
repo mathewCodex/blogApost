@@ -1,4 +1,4 @@
-import prisma from "@/app/prismadb";
+import {prisma} from "@/app/prismadb"
 import { auth } from "@clerk/nextjs";
 import { NextRequest, NextResponse } from "next/server";
 

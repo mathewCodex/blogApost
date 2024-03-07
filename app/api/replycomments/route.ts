@@ -1,5 +1,5 @@
-import prisma from "@/app/prismadb"
 import { auth } from "@clerk/nextjs"
+import {prisma} from "@/app/prismadb"
 import { NextResponse, NextRequest } from "next/server"
 
 export async function POST(request: NextRequest){

@@ -72,7 +72,7 @@ const RenderStory = async ({AuthorFirstName,AuthorImage,AuthorLastName,Published
                 <div className='flex items-center space-x-4'>
                     <SaveComponent storyId={PublishedStory.id} SavedStatus={SavedStatus.Status}/>
                     <ShareComponent/>
-                    <button>
+                    <button type="button">
                         <MoreHorizontal size={24} className='opacity-80 text-green-800'/>
                     </button>
                 </div>
