@@ -55,7 +55,7 @@ const Navbar = (props: Props) => {
 						/>
 					</div>
 				</div>
-				<div className="flex items-center space-x-7">
+				<div className="flex items-center space-x-5">
 					<span
 						onClick={MakeNewStory}
 						className="flex cursor-pointer items-center space-x-2 opacity-70 duration-100 ease-in hover:opacity-100"
