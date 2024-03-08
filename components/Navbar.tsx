@@ -82,15 +82,15 @@ const Navbar = (props: Props) => {
 						href="/me/drafts"
 						className="flex items-center space-x-1 text-sm font-light opacity-60"
 					>
-						<ScrollText size={20} opacity={20} /> Me
+						<ScrollText size={20} opacity={20} /> drafts
 					</Link>
 
 					{isSignedIn && (
 						<Link
-							href={`/app/profiles/${userId}`}
+							 href={`/profiles/user?${userId}`}
 							className="flex items-center space-x-1 text-sm font-light opacity-60"
 						>
-							<ScrollText size={20} opacity={20} /> profile
+							<ScrollText size={20} opacity={20} />profile
 						</Link>
 					)}
 					<ThemeToggle />
