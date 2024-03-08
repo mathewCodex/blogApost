@@ -1,5 +1,5 @@
 import { TbFidgetSpinner } from "react-icons/tb"
-
+import { getuser } from "@/app/actions/User"
 // import { useSearchParams } from "next/navigation"
 // import getCurrentUser from "@/lib/session"
 // import useUser from "@/app/hooks/use-user"
@@ -16,14 +16,14 @@ import { cappedAvatarFallback } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
 
+import { getPublishedStoryById } from "@/app/actions/getStories"
 
-
-async function ProfilePage() {
+async function ProfilePage({ params }: { params: { userId: string } }) {
 	const currentUser = await getCurrentuser();
-    
+     const PublishedStory = await getPublishedStoryById(params.userId)
 	// const getUsersPost = await GET(currentUser.id)
 	// const { user, isLoading } = useUser(userId as string)
-
+const Author = await getuser(PublishedStory.response?.authorId)
 	if (!currentUser) {
 		return (
 			<div className="flex h-full items-center justify-center">
@@ -45,12 +45,12 @@ async function ProfilePage() {
 											{currentUser && (
 												<Avatar className=" h-48 w-48 rounded-full">
 													<AvatarImage
-														src={currentUser.image ?? ""}
-														alt={currentUser.name ?? "currentUser name"}
+														src={Author.imageUrl ?? ""}
+														alt={currentUser.firstName?? "currentUser name"}
 													/>
 													<AvatarFallback className="font-bold">
-														{currentUser.name
-															? cappedAvatarFallback(currentUser.name)
+														{currentUser.firstName
+															? cappedAvatarFallback(currentUser.firstName)
 															: "SM"}
 													</AvatarFallback>
 												</Avatar>
@@ -117,7 +117,7 @@ async function ProfilePage() {
 												a solid groove structure. An artist of considerable range.
 											</p>
 											<a href="javascript:void(0);" className="font-normal text-pink-500">
-												<Link href={`/profiles/onBoarding`}>Edit</Link>
+												<Link href={`/profiles/onBoarding?${currentUser.id}`}>Edit</Link>
 											</a>
 										</div>
 									</div>

@@ -76,7 +76,7 @@ const DashBoardLayout = async () => {
 							<h1 className="mb-2 text-4xl font-semibold">{timeOfDay}</h1>
 							<h2 className="ml-0.5 text-gray-600">
 								{" "}
-								<span className="font-semi-bold text-2xl">Welcome back</span>,{user?.name}
+								<span className="font-semi-bold text-2xl">Welcome back</span>,{user?.firstName}
 							</h2>
 						</div>
 						<div className="-mb-3 flex flex-wrap items-start justify-end">

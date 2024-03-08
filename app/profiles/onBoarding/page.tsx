@@ -5,22 +5,25 @@ import React from "react"
 import { getCurrentuser } from "@/app/actions/User";
 import BreadCrumb from "@/components/breadcrumb"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { getuser } from "@/app/actions/User"
 // import AuthForm from "@/app/auth/auth-form"
 // import { redirect } from "next/navigation"
 import { CreateProfileOne } from "@/components/forms/user-profile-stepper/create-profile"
 
-const OnBoarding = async () => {
-	const user = await getCurrentuser()
+const OnBoarding = async ({ params }: { params: { userId: string } }) => {
+	const user = await getCurrentuser();
+const Author = await getuser(params.userId)
 	// if (user?.onBoarded) redirect(`/profiles/?${user.id}`)
 const breadcrumbItems = [{ title: "Profile", link: `/profiles/onBoarding/${user?.name}`}]
+
 	const userData = {
 		id: user?.id as string,
-		name: (user?.name as string) ?? "",
-		email: (user?.email as string) ?? "",
+		name: (user?.firstName as string) ?? "",
+		email: (Author.emailAddresses[0].emailAddress as string) ?? "",
 		bio: user ? (user?.bio as string) : "",
-		imageSrc: user ? (user?.image as string) : " ",
+		imageSrc: user ? (user?.imageUrl as string) : " ",
 	}
-
+ 
 	// if (!user) {
 	// 	return (
 	// 		<ClientOnly>
