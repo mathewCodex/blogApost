@@ -7,14 +7,15 @@ import { ChevronDownIcon } from "@radix-ui/react-icons"
 // import { SIDENAV_ITEMS } from "../dashboard/constant"
 // import GetUserData from "@/app/hooks/getuser-data"
 // import { SafeUser } from "@/app/types"
-
+import { useAuth } from "@clerk/nextjs";
 // import UseUser from "@/app/hooks/useUsers"
 import { AiFillDashboard } from "react-icons/ai"
 import { BiHome, BiUser } from "react-icons/bi"
 import { TbBell, TbSettings } from "react-icons/tb"
+import { useUser } from "@clerk/nextjs"
 // import { User } from "@/lib/prisma"
 import { cn } from "@/lib/utils"
-import { useSession } from "next-auth/react";
+// import { useSession } from "next-auth/react";
 type SideNavItem = {
 	title: string
 	path: string
@@ -22,7 +23,7 @@ type SideNavItem = {
 	submenu?: boolean
 	subMenuItems?: SideNavItem[]
 	auth?: boolean
-	alert?: string
+	alert?: string | null | undefined
 }
 // interface sideNavProps {
 // 	currentUser?: User | null
@@ -30,17 +31,19 @@ type SideNavItem = {
 // mx-4 my-8 flex flex-col space-y-4
 const SideNav = () => {
 	// const { user } = GetUserData()
+	 const {  user } = useUser()
+	  const {  userId } = useAuth()
 	// const { user: currentuser } = UseUser()
- const { data: session } = useSession();
+//  const { data: session } = useSession();
 	const SIDENAV_ITEMS: SideNavItem[] = [
 		{
 			title: "Home",
-			path: `/profiles/user?${session?.user?.email}`,
+			path: `/profiles/user?${user?.id}`,
 			icon: <BiHome size={24} />,
 		},
 		{
 			title: "Activities",
-			path: `/profiles/dashboard?${session?.user?.email}`,
+			path: `/profiles/dashboard?${user?.id}`,
 			icon: <AiFillDashboard size={24} />,
 		},
 		{
@@ -57,7 +60,7 @@ const SideNav = () => {
 		{
 			title: "Notification",
 			path: "/profiles/notifications",
-			alert: session?.user?.email,
+			alert: userId,
 			auth: true,
 			icon: <TbBell size={24} />,
 		},
@@ -69,7 +72,7 @@ const SideNav = () => {
 			subMenuItems: [
 				{
 					title: "Edit Account",
-					path: `/profiles/onBoarding?${session?.user?.email}`,
+					path: `/profiles/onBoarding?${user?.id}`,
 				},
 				{ title: "Privacy", path: "/settings/privacy" },
 			],

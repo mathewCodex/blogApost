@@ -117,7 +117,7 @@ async function ProfilePage() {
 												a solid groove structure. An artist of considerable range.
 											</p>
 											<a href="javascript:void(0);" className="font-normal text-pink-500">
-												<Link href={`/profiles/onBoarding/${currentUser.id}`}>Edit</Link>
+												<Link href={`/profiles/onBoarding`}>Edit</Link>
 											</a>
 										</div>
 									</div>
