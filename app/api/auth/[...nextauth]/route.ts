@@ -4,7 +4,7 @@ import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/prisma";
 import { env } from "@/env.mjs";
 import CredentialProvider from "next-auth/providers/credentials"
-import TwitterProvider from "next-auth/providers/twitter"
+// import TwitterProvider from "next-auth/providers/twitter"
 
 export const authOptions = {
 	adapter: PrismaAdapter(prisma),
@@ -15,11 +15,11 @@ export const authOptions = {
 			clientId: env.GOOGLE_CLIENT_ID,
 			clientSecret: env.GOOGLE_CLIENT_SECRET,
 		}),
-      TwitterProvider({
-			clientId: env.TWITTER_CLIENT_ID,
-			clientSecret: env.TWITTER_CLIENT_SECRET,
-			version: "2.0", // opt-in to Twitter OAuth 2.0
-		}),
+    //   TwitterProvider({
+	// 		clientId: env.TWITTER_CLIENT_ID,
+	// 		clientSecret: env.TWITTER_CLIENT_SECRET,
+	// 		version: "2.0", // opt-in to Twitter OAuth 2.0
+	// 	}),
 		CredentialProvider({
 			name: "credentials",
 			credentials: {
