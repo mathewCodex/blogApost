@@ -11,6 +11,7 @@ export const env = createEnv({
 		// MAIL_PASS: z.string(),
 		// MAIL_SERVICE: z.string(),
 		// MAIL_USER: z.string(),
+		// tryruiotptyppypyi
 		TWITTER_CLIENT_ID: z.string(),
 		TWITTER_CLIENT_SECRET: z.string(),
 		KNOCK_SECRET_APIKEY: z.string(),
