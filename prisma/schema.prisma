@@ -17,12 +17,12 @@ model Story {
   content    String?
   topics     String[]
   publish    Boolean @default(false)
+  // onBoarded Boolean? @default(false)
   createdAt  DateTime @default(now())
   updatedAt  DateTime  @updatedAt
   Clap        Clap[]
   Comments    Comment[]
   Save    Save[]
-
 }
 
 model Comment {

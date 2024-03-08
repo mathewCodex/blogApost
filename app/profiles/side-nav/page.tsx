@@ -35,12 +35,12 @@ const SideNav = () => {
 	const SIDENAV_ITEMS: SideNavItem[] = [
 		{
 			title: "Home",
-			path: `/profiles/user?${session?.user.email}`,
+			path: `/profiles/user?${session?.user?.email}`,
 			icon: <BiHome size={24} />,
 		},
 		{
 			title: "Activities",
-			path: `/profiles/dashboard?${session?.user.email}`,
+			path: `/profiles/dashboard?${session?.user?.email}`,
 			icon: <AiFillDashboard size={24} />,
 		},
 		{
@@ -57,7 +57,7 @@ const SideNav = () => {
 		{
 			title: "Notification",
 			path: "/profiles/notifications",
-			alert: session?.user.email,
+			alert: session?.user?.email,
 			auth: true,
 			icon: <TbBell size={24} />,
 		},
@@ -69,7 +69,7 @@ const SideNav = () => {
 			subMenuItems: [
 				{
 					title: "Edit Account",
-					path: `/profiles/onBoarding?${currentUser?.id}`,
+					path: `/profiles/onBoarding?${session?.user?.email}`,
 				},
 				{ title: "Privacy", path: "/settings/privacy" },
 			],

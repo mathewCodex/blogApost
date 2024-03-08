@@ -4,7 +4,7 @@ import { getCurrentUserId } from "./User"
 
 export const CheckSaved = async (storyId:string) => {
     const userId = await getCurrentUserId()
-    if(!userId) throw new Error('No user found')
+    if(!userId) throw new Error("No user found")
     try {
         const saved = await prisma.save.findFirst({
             where:{

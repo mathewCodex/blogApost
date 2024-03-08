@@ -3,7 +3,7 @@ import { getUniqueTopics } from "@/app/actions/getStories";
 import Navbar from "@/components/Navbar";
 import StoryList from "@/components/StoryList";
 // import Image from "next/image";
-
+// import { UserButton } from "@clerk/nextjs"
 export default async function Home() {
   const allTopics = await getUniqueTopics()
   const UserTags = await GetSelectedTopics()
@@ -35,8 +35,9 @@ export default async function Home() {
 								className="block w-full rounded bg-blue-600 px-12 py-3 text-sm font-medium text-white shadow hover:bg-blue-700 focus:outline-none focus:ring active:bg-rose-500 sm:w-auto"
 							>
 								Get Started
+								
 							</a>
-
+   
 							<a
 								href="#"
 								className="text-rose-blue block w-full rounded bg-accent px-12 py-3 text-sm font-medium shadow hover:text-rose-700 focus:outline-none focus:ring active:text-blue-500 sm:w-auto"

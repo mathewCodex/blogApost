@@ -97,7 +97,7 @@ const AddTagComp = ({allTopics,setShowPopUp,UserTags}:TagsTyps) => {
 
     
     return(
-        <div className='fixed bg-gray-50 w-full z-20 overflow-auto top-0 left-0 right-0 bottom-0'>
+        <div className='fixed bg-background w-full z-20 overflow-auto top-0 left-0 right-0 bottom-0'>
             <span onClick={(e) => {e.preventDefault() ;setShowPopUp(false)}} className='absolute top-4 right-6 text-3xl cursor-pointer'>
                 &times;
             </span>
@@ -120,7 +120,7 @@ const AddTagComp = ({allTopics,setShowPopUp,UserTags}:TagsTyps) => {
                     className='basic-multi-select'
                     classNamePrefix='Add a topic ...'
                     />
-                    <button onClick={() => Addtags()} className='px-4 py-2 bg-green-600 hover:bg-green-700 rounded-full text-white text-sm mt-8'>
+                    <button onClick={() => Addtags()} className='px-4 py-2 bg-green-600 hover:bg-green-700 rounded-full text-sm mt-8'>
                         Add Tags
                     </button>
                 </div>
