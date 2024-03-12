@@ -1,4 +1,4 @@
-import { getCurrentuser } from "@/app/actions/User";
+import { getCurrentUserId, getCurrentuser, getuser } from "@/app/actions/User";
 import SignIn from "@/app/account/signin/page";
 import Header from "./side-nav/header";
 import Sidebar from "./side-nav/page";
@@ -10,7 +10,8 @@ export default async function profileLayout({
 }: {
 	children: React.ReactNode;
 }) {
-	const currentUser = await getCurrentuser();
+		const userId = await getCurrentUserId()
+const user = await getuser(userId)
 	// const knockClient = new Knock(env.KNOCK_SECRET_APIKEY)
 	// const knockUser = await knockClient.users.identify(currentUser?.id as string, {
 	// 	name: currentUser?.name as string,
@@ -28,7 +29,7 @@ export default async function profileLayout({
 					<Header />
 
 					<div className=" flex h-screen  overflow-y-auto bg-background">
-						<Sidebar currentUser={currentUser} />
+						<Sidebar story={user} />
 						{/* <div className="flex-grow text-gray-800"></div> */}
 						<main className="w-full pt-16"> {children}</main>
 					</div>
