@@ -1,7 +1,7 @@
 "use client"
 import { usePathname } from "next/navigation"
 import React, { useState } from "react"
-
+import { env } from "@/env.mjs"
 type Props = {}
 
 const ShareComponent = (props: Props) => {
@@ -14,8 +14,8 @@ const ShareComponent = (props: Props) => {
         </button>
         {showPopup && (
         <div className='w-[250px] h-[100px] rounded-md shadow-lg absolute bottom-12 -left-20'>
-            <input value={`${process.env.NEXT_PUBLIC_URL}${pathname}`} className='overflow-hidden p-2 m-2 border-[1px] rounded-md bg-gray-100'/>
-            <button onClick={() => navigator.clipboard.writeText(`${process.env.NEXT_PUBLIC_URL}${pathname}`)} className='text-center w-full py-2'>
+            <input value={`${env.NEXT_PUBLIC_URL}${pathname}`} className='overflow-hidden p-2 m-2 border-[1px] rounded-md bg-gray-100'/>
+            <button onClick={() => navigator.clipboard.writeText(`${env.NEXT_PUBLIC_URL}${pathname}`)} className='text-center w-full py-2'>
                 Copy Link
             </button>
         </div>

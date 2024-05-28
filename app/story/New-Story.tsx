@@ -37,6 +37,7 @@ const NewStory = ({storyId, Storycontent}: Props) => {
         };
       }
       
+      //The debounce function will execute the handle save function after some delay when user stops activity
     const debouncedHandleSave = useRef(
     debounce(() => {
         handleSave();
@@ -107,17 +108,17 @@ const NewStory = ({storyId, Storycontent}: Props) => {
         const isSupported  = typeof window.getSelection !== "undefined"
 
         if(isSupported){
-            const selection = window.getSelection() as Selection
+            const selection = window.getSelection() as Selection //type assertion
             if(selection?.rangeCount > 0){
                 const range = selection.getRangeAt(0).cloneRange()
                 const rect = range.getClientRects()[0]
                 if(rect){
                     x  = rect.left + window.screenX
-                    y = rect.top + window.scrollY -80
+                    y = rect.top + window.scrollY -80 //makes the top position fixed...
                 }
             }
         }
-
+5
         return {x, y}
     }
 
@@ -125,7 +126,7 @@ const NewStory = ({storyId, Storycontent}: Props) => {
 
         const handleInput = () => {
             const {x , y} = getCaretPosition()
-            setbuttonPosition({top:y, left: -50})
+            setbuttonPosition({top:y, left: -50})//this fixed the left position of the input field
 
             debouncedHandleSave()
         }
@@ -196,8 +197,8 @@ const NewStory = ({storyId, Storycontent}: Props) => {
                 <Plus className={`duration-300 ease-linear ${openTools ? "rotate-90":""}`}/>
             </button>
             <div id='tool' className={`flex items-center space-x-4 absolute top-0 left-14  ${openTools ? "visible":"invisible"}`} >
-                <span onClick={InserImageComp} className={`border-[1.5px] border-green-500 rounded-full block p-[6px] ${openTools ? "scale-100 visible" :"scale-0 invisible"} ease-linear duration-100 bg-white cursor-pointer`}>
-                <Image size={20} className='opacity-60 text-green-800 '/>
+                <span onClick={InserImageComp} className={`border-[1.5px] border-blue-500 rounded-full block p-[6px] ${openTools ? "scale-100 visible" :"scale-0 invisible"} ease-linear duration-100 bg-white cursor-pointer`}>
+                <Image size={20} className='opacity-60 text-blue-800 '/>
                 <input 
                 type="file"
                 accept='image/*'
@@ -206,11 +207,11 @@ const NewStory = ({storyId, Storycontent}: Props) => {
                 onChange={handleFileInputChange}
                 />
                 </span>
-                <span onClick={InserDivider} className={`border-[1.5px] border-green-500 rounded-full block p-[6px] ${openTools ? "scale-100 visible" :"scale-0 invisible"} ease-linear duration-100 delay-75 bg-white cursor-pointer`}>
-                    <MoreHorizontal size={20} className='opacity-60 text-green-800 ' />
+                <span onClick={InserDivider} className={`border-[1.5px] border-blue-500 rounded-full block p-[6px] ${openTools ? "scale-100 visible" :"scale-0 invisible"} ease-linear duration-100 delay-75 bg-white cursor-pointer`}>
+                    <MoreHorizontal size={20} className='opacity-60 text-blue-800'/>
                 </span>
                 <span onClick={InserCodeBlock} className={`border-[1.5px] border-green-500 rounded-full block p-[6px] ${openTools ? "scale-100 visible" :"scale-0 invisible"} ease-linear duration-100 delay-100 bg-white cursor-pointer`}>
-                    <Code size={20} className='opacity-60 text-green-800 ' />
+                    <Code size={20} className='opacity-60 text-blue-800 '/>
                 </span>
             </div>
         </div>
@@ -290,8 +291,7 @@ const CodeBlock = ({handleSave}:{handleSave:() => void}) => {
     const handlePaste = async () => {
         try {
             const clipboardData = await navigator.clipboard.readText()
-            console.log(clipboardData)
-
+            console.log(clipboardData)                                                                                    
             setCode((prev) => prev + clipboardData)
         } catch (error) {
             console.log(error)
@@ -321,6 +321,7 @@ const CodeBlock = ({handleSave}:{handleSave:() => void}) => {
                         <option value="javascript">JavaScript</option>
                         <option value="python">Python</option>
                         <option value="java">Java</option>
+                         <option value="C">C programming</option>
                     </select>
                 </div>
                 <textarea 

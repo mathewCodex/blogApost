@@ -41,7 +41,7 @@ const NavbarStory = ({storyId, CurrentUserFirstName, CurrentUserLastName,Current
             </Link>
             </div>
             <div className='flex items-center space-x-7'>
-            <button onClick={() => setShowPopup(!showPopup)} className='flex items-center opacity-90 hover:opacity-100 duration-100 ease-in cursor-pointer bg-green-600 hover:bg-green-700 rounded-full px-3 py-1 text-[13px] text-white'>Publish</button>
+            <button onClick={() => setShowPopup(!showPopup)} className='flex items-center opacity-90 hover:opacity-100 duration-100 ease-in cursor-pointer bg-blue-600 hover:bg-blue-700 rounded-full px-3 py-1 text-[13px] text-white'>Publish</button>
             <UserButton signInUrl='/'/>
             </div>
         </div>
@@ -85,6 +85,7 @@ const SaveStoryPopUp = ({storyId,PublishStory,setShowPopUp,CurrentUserFirstName,
         {value:"Artificial Intelligence", label:"Artificial Intelligence"},
         {value:"Python", label:"Python"},
         {value:"Programming", label:"Programming"},
+         {value:"Javascript", label:"Programming"},
         {value:"Fashion", label:"Fashion"},
         {value:"World", label:"World"},
         {value:"Politics", label:"Politics"},
@@ -133,7 +134,7 @@ const SaveStoryPopUp = ({storyId,PublishStory,setShowPopUp,CurrentUserFirstName,
                     </div>
                     <h1 className='border-b-[1px] text-[18px] font-semibold py-2'>{h1elemntwithouttag}</h1>
                     <p className='border-b-[1px] py-2 text-sm text-neutral-500 pt-3'>{first10Words}</p>
-                    <p className='font-medium text-sm pt-2'>Note: <span className='font-normal text-neutral-500'>Changes here will affect how your story appears in public places like Medium’s homepage and in subscribers’ inboxes — not the contents of the story itself.</span></p>
+                    <p className='font-medium text-sm pt-2'>Note: <span className='font-normal text-neutral-500'>Changes here will affect how your story appears in public places like the homepage and in subscribers’ inboxes — not the contents of the story itself.</span></p>
                 </div>
                 <div>
                     <p className='py-2'>Publishing to: <span>{CurrentUserFirstName} {CurrentUserLastName}</span></p>

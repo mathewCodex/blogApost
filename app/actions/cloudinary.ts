@@ -10,11 +10,11 @@ export const ImageUpload = async (formData: FormData) => {
         throw new Error("Image not found to upload")
     }
 
-    const cloudinaryUplaodUrl = `https://api.cloudinary.com/v1_1/${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`
+    const cloudinaryUploadUrl = `https://api.cloudinary.com/v1_1/${env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`
 
 
     try {
-        const response = await axios.post(cloudinaryUplaodUrl, formData, {
+        const response = await axios.post(cloudinaryUploadUrl, formData, {
             headers:{
                 "Content-Type":"multipart/form-data"
             }

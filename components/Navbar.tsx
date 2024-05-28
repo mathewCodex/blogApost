@@ -6,10 +6,11 @@ import React, { useState } from "react"
 import {ScrollText, Search} from "lucide-react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
-import SmnkBrand from "./smnk-brand";
+// import BlogBrand from "./blog-brand";
 import { useUser } from "@clerk/nextjs"
 import { useAuth } from "@clerk/nextjs";
 import { ThemeToggle } from "./theme-toggle"
+import BlogBrand from "./blog-brand"
 type Props = {}
 
 const Navbar = (props: Props) => {
@@ -37,8 +38,8 @@ const Navbar = (props: Props) => {
 			<div className="flex items-center justify-between">
 				<div className="flex items-center space-x-3">
 					<Link href="/">
-						{/* <Image src='/medium-icon.svg' width={40} height={40} alt='Medium Logo'/> */}
-						<SmnkBrand />
+						
+						<BlogBrand />
 					</Link>
 					<div className="flex items-center rounded-full bg-gray-50 px-2">
 						<Search

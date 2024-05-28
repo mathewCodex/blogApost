@@ -2,7 +2,7 @@ import React from "react"
 // import { Card, CardHeader } from "@/components/ui/card"
 // import ClientOnly from "@/components/ClientOnly"
 // import getCurrentUser from "@/lib/session"
-import { getCurrentUserId } from "@/app/actions/User";
+import { getCurrentuser } from "@/app/actions/User";
 import BreadCrumb from "@/components/breadcrumb"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { getuser } from "@/app/actions/User"
@@ -10,17 +10,16 @@ import { getuser } from "@/app/actions/User"
 // import { redirect } from "next/navigation"
 import { CreateProfileOne } from "@/components/forms/user-profile-stepper/create-profile"
 
-const OnBoarding = async () => {
-	// const user = await getCurrentuser();
-	const userId = await getCurrentUserId()
-const user = await getuser(userId)
+const OnBoarding = async ({ params }: { params: { userId: string } }) => {
+	const user = await getCurrentuser();
+const Author = await getuser(params.userId)
 	// if (user?.onBoarded) redirect(`/profiles/?${user.id}`)
 const breadcrumbItems = [{ title: "Profile", link: `/profiles/onBoarding/${user?.name}`}]
 
 	const userData = {
 		id: user?.id as string,
 		name: (user?.firstName as string) ?? "",
-		email: (user.emailAddresses[0].emailAddress as string) ?? "",
+		email: (Author.emailAddresses[0].emailAddress as string) ?? "",
 		bio: user ? (user?.bio as string) : "",
 		imageSrc: user ? (user?.imageUrl as string) : " ",
 	}

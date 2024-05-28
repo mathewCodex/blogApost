@@ -52,6 +52,7 @@ const RenderStory = async ({AuthorFirstName,AuthorImage,AuthorLastName,Published
     ? content.replace(firstH1Match[0], "")
     : content;
 
+    //fRemove textArea and select from H1...
     const finalSanitizedContent = sanitizedContent.replace(/<h1[^>]*>[\s\S]*?<\/h1>|<select[^>]*>[\s\S]*?<\/select>|<textarea[^>]*>[\s\S]*?<\/textarea>/gi, "");
   return (
     <div className='flex items-center justify-center mt-6 max-w-[800px] mx-auto'>
@@ -73,7 +74,7 @@ const RenderStory = async ({AuthorFirstName,AuthorImage,AuthorLastName,Published
                     <SaveComponent storyId={PublishedStory.id} SavedStatus={SavedStatus.Status}/>
                     <ShareComponent/>
                     <button type="button">
-                        <MoreHorizontal size={24} className='opacity-80 text-green-800'/>
+                        <MoreHorizontal size={24} className='opacity-80 text-blue-800'/>
                     </button>
                 </div>
             </div>

@@ -1,5 +1,5 @@
 "use client"
-import SmnkBrand from "../smnk-brand"
+import SmnkBrand from "../blog-brand"
 import { ThemeToggle } from "../theme-toggle"
 
 import MobileNav from "./mobile-nav"

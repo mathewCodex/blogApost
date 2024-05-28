@@ -42,9 +42,9 @@ const FollowComponent = ({AuthorId}: Props) => {
             await axios.post("/api/following", {
                 AuthorId
             })
-            console.log("Success folloing")
+            console.log("Success following")
         } catch (error) {
-            console.log("Error in foloowing the author")
+            console.log("Error in following the author")
             setisfollowed(!isfollowed)
         }
     }

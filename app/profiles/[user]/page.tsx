@@ -1,5 +1,5 @@
 import { TbFidgetSpinner } from "react-icons/tb"
-import { getCurrentUserId, getuser } from "@/app/actions/User"
+import { getuser } from "@/app/actions/User"
 // import { useSearchParams } from "next/navigation"
 // import getCurrentUser from "@/lib/session"
 // import useUser from "@/app/hooks/use-user"
@@ -10,22 +10,25 @@ import { getCurrentUserId, getuser } from "@/app/actions/User"
 // import UserHero from "@/components/ui/hero"
 // import UserBio from "@/components/ui/user-bio"
 import { BiCalendar } from "react-icons/bi"
-// import { getCurrentuser } from "@/app/actions/User";
+import { getCurrentuser } from "@/app/actions/User";
 // import PostItem from "@/components/cards/post-items"
 import { cappedAvatarFallback } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
 
-// import { getPublishedStoryById } from "@/app/actions/getStories"
+import { getPublishedStoryById } from "@/app/actions/getStories"
+/**  const UserId = await getCurrentUserId()
+                // if(UserId)
+                // setCurrentUserId(UserId)
 
-async function ProfilePage() {
-	// const currentUser = await getCurrentuser();
-    //  const PublishedStory = await getPublishedStoryById(params.userId)
+				*/
+async function ProfilePage({ params }: { params: { userId: string } }) {
+	const currentUser = await getCurrentuser();
+     const PublishedStory = await getPublishedStoryById(params.userId)
+	
 	// const getUsersPost = await GET(currentUser.id)
 	// const { user, isLoading } = useUser(userId as string)
-	const userId = await getCurrentUserId()
-const currentUser = await getuser(userId);
-
+const Author = await getuser(PublishedStory.response?.authorId)
 	if (!currentUser) {
 		return (
 			<div className="flex h-full items-center justify-center">
@@ -34,7 +37,6 @@ const currentUser = await getuser(userId);
 		)
 	}
 	const formatDateTime = new Intl.DateTimeFormat(undefined, { dateStyle: "short" })
-	
 	return (
 		<>
 			<div className="flex flex-col items-center justify-center ">
@@ -48,7 +50,7 @@ const currentUser = await getuser(userId);
 											{currentUser && (
 												<Avatar className=" h-48 w-48 rounded-full">
 													<AvatarImage
-														src={currentUser.imageUrl ?? ""}
+														src={Author.imageUrl ?? ""}
 														alt={currentUser.firstName?? "currentUser name"}
 													/>
 													<AvatarFallback className="font-bold">

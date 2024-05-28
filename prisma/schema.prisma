@@ -1,3 +1,73 @@
+// // This is your Prisma schema file,
+// // learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// generator client {
+//   provider = "prisma-client-js"
+// }
+
+// datasource db {
+//   provider = "mongodb"
+//   url      = env("DATABASE_URL")
+// }
+
+
+// model Story {
+//   id    String    @id @default(auto()) @map("_id") @db.ObjectId
+//   authorId   String
+//   content    String?
+//   topics     String[]
+//   publish    Boolean @default(false)
+//   // onBoarded Boolean? @default(false)
+//   createdAt  DateTime @default(now())
+//   updatedAt  DateTime  @updatedAt
+//   Clap        Clap[]
+//   Comments    Comment[]
+//   Save    Save[]
+// }r
+
+// model Comment {
+//     id    String    @id @default(auto()) @map("_id") @db.ObjectId
+//     content String
+//     createdAt DateTime @default(now())
+//     userId    String
+//     storyId String   @db.ObjectId
+//     story   Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+//     parentCommentId String   @db.ObjectId
+//     // parentComment Comment? @relation(fields: [parentCommentId], references: [id], onDelete: Cascade)
+//     // replies Comment[] @relation("Comment to Comment")
+//     Clap    Clap[]
+// }
+
+// model Clap {
+//     id    String    @id @default(auto()) @map("_id") @db.ObjectId
+//     userId  String
+//     storyId String   @db.ObjectId
+//     story   Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+//     commentId String   @db.ObjectId
+//     Comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+//     clapCount   Int @default(0)
+// }
+
+// model Save {
+//     id    String    @id @default(auto()) @map("_id") @db.ObjectId
+//     createdAt   DateTime @default(now())
+//     userId      String
+//     storyId String   @db.ObjectId
+//     story   Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+// }
+
+// model Following {
+//   id    String    @id @default(auto()) @map("_id") @db.ObjectId
+//   followerId String
+//   followingId String
+// }
+
+// model Topics {
+//     id    String    @id @default(auto()) @map("_id") @db.ObjectId
+//     userId   String @unique
+//     selectedTopics  String[]
+// }
+
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
@@ -10,60 +80,58 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Story {
-  id    String    @id @default(auto()) @map("_id") @db.ObjectId
-  authorId   String
-  content    String?
-  topics     String[]
-  publish    Boolean @default(false)
-  // onBoarded Boolean? @default(false)
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime  @updatedAt
-  Clap        Clap[]
-  Comments    Comment[]
-  Save    Save[]
+  id           String   @id @default(auto()) @map("_id")  @db.ObjectId
+  authorId     String
+  content      String?
+  topics       String[]
+  publish      Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  Clap         Clap[]
+  Comments     Comment[]
+  Save         Save[]
 }
 
 model Comment {
-    id    String    @id @default(auto()) @map("_id") @db.ObjectId
-    content String
-    createdAt DateTime @default(now())
-    userId    String
-    storyId String   @db.ObjectId
-    story   Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
-    parentCommentId String   @db.ObjectId
-    // parentComment Comment? @relation(fields: [parentCommentId], references: [id], onDelete: Cascade)
-    // replies Comment[] @relation("Comment to Comment")
-    Clap    Clap[]
+  id              String   @id @default(auto()) @map("_id")  @db.ObjectId
+  content         String
+  createdAt       DateTime @default(now())
+  userId          String
+  storyId         String  @db.ObjectId
+  story           Story    @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  parentCommentId String?  @db.ObjectId
+ parentComment Comment? @relation("CommentToComment", fields: [parentCommentId], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  replies         Comment[] @relation("CommentToComment")
+  Clap            Clap[]
 }
 
 model Clap {
-    id    String    @id @default(auto()) @map("_id") @db.ObjectId
-    userId  String
-    storyId String   @db.ObjectId
-    story   Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
-    commentId String   @db.ObjectId
-    Comment   Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
-    clapCount   Int @default(0)
+  id         String  @id @default(auto()) @map("_id")  @db.ObjectId
+  userId     String
+  storyId    String   @db.ObjectId
+  story      Story   @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  commentId  String?   @db.ObjectId
+  Comment    Comment? @relation(fields: [commentId], references: [id], onDelete: Cascade)
+  clapCount  Int     @default(0)
 }
 
 model Save {
-    id    String    @id @default(auto()) @map("_id") @db.ObjectId
-    createdAt   DateTime @default(now())
-    userId      String
-    storyId String   @db.ObjectId
-    story   Story @relation(fields: [storyId], references: [id], onDelete: Cascade)
+  id         String   @id @default(auto()) @map("_id")  @db.ObjectId
+  createdAt  DateTime @default(now())
+  userId     String
+  storyId    String   @db.ObjectId
+  story      Story    @relation(fields: [storyId], references: [id], onDelete: Cascade)
 }
 
 model Following {
-  id    String    @id @default(auto()) @map("_id") @db.ObjectId
-  followerId String
+  id          String   @id @default(auto()) @map("_id")  @db.ObjectId
+  followerId  String
   followingId String
 }
 
 model Topics {
-    id    String    @id @default(auto()) @map("_id") @db.ObjectId
-    userId   String @unique
-    selectedTopics  String[]
+  id             String   @id @default(auto()) @map("_id")  @db.ObjectId
+  userId         String   @unique 
+  selectedTopics String[]
 }

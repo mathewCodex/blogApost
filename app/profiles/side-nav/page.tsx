@@ -2,17 +2,17 @@
 import React, { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Story } from "@prisma/client"
+
 import { ChevronDownIcon } from "@radix-ui/react-icons"
 // import { SIDENAV_ITEMS } from "../dashboard/constant"
 // import GetUserData from "@/app/hooks/getuser-data"
 // import { SafeUser } from "@/app/types"
-// import { useAuth } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 // import UseUser from "@/app/hooks/useUsers"
 import { AiFillDashboard } from "react-icons/ai"
 import { BiHome, BiUser } from "react-icons/bi"
 import { TbBell, TbSettings } from "react-icons/tb"
-// import { useUser } from "@clerk/nextjs"
+import { useUser } from "@clerk/nextjs"
 // import { User } from "@/lib/prisma"
 import { cn } from "@/lib/utils"
 // import { useSession } from "next-auth/react";
@@ -29,23 +29,21 @@ type SideNavItem = {
 // 	currentUser?: User | null
 // }
 // mx-4 my-8 flex flex-col space-y-4
-//passing story as props is same as user as props just called it story based on it use case
-//Story.id is same as user.id
-const SideNav = ({story}:{story:Story}) => {
+const SideNav = () => {
 	// const { user } = GetUserData()
-	//  const {  user } = useUser()
-	//   const {  userId } = useAuth()
+	 const {  user } = useUser()
+	  const {  userId } = useAuth()
 	// const { user: currentuser } = UseUser()
 //  const { data: session } = useSession();
 	const SIDENAV_ITEMS: SideNavItem[] = [
 		{
 			title: "Home",
-			path: `/profiles/user?${story?.id}`,
+			path: `/profiles/user?${user?.id}`,
 			icon: <BiHome size={24} />,
 		},
 		{
 			title: "Activities",
-			path: `/profiles/dashboard?${story?.id}`,
+			path: `/profiles/dashboard?${user?.id}`,
 			icon: <AiFillDashboard size={24} />,
 		},
 		{
@@ -62,7 +60,7 @@ const SideNav = ({story}:{story:Story}) => {
 		{
 			title: "Notification",
 			path: "/profiles/notifications",
-			alert: story.id,
+			alert: userId,
 			auth: true,
 			icon: <TbBell size={24} />,
 		},
@@ -74,7 +72,7 @@ const SideNav = ({story}:{story:Story}) => {
 			subMenuItems: [
 				{
 					title: "Edit Account",
-					path: `/profiles/onBoarding?${story?.id}`,
+					path: `/profiles/onBoarding?${user?.id}`,
 				},
 				{ title: "Privacy", path: "/settings/privacy" },
 			],

@@ -15,7 +15,7 @@ export async function PATCH(request: NextRequest) {
     })
     
     if(!story){
-        throw new Error("No Story were found")
+        throw new Error("No Story was found")
     }
 
     try {

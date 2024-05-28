@@ -3,11 +3,8 @@
 import { AiOutlineHeart } from "react-icons/ai"
 // import GET from "@/app/api/[get-mypost]/route"
 import ClientOnly from "@/components/ClientOnly"
-// IMPORT {getPublishedStory}
-// import { getCurrentuser } from "@/app/actions/User";
 
-import { getPublishedStory } from "@/app/actions/me";
-import { getCurrentUserId, getuser } from "@/app/actions/User";
+import { getCurrentuser } from "@/app/actions/User";
 // import useSWR from "swr"
 // import { useSession } from "next-auth/react"
 // import SideNav from "../side-nav/page"
@@ -27,10 +24,8 @@ import { getCurrentUserId, getuser } from "@/app/actions/User";
 // { params }: { params: string }
 const DashBoardLayout = async () => {
 	// const { data: user } = useSession()
-	const userId = await getCurrentUserId()
-	const published = await getPublishedStory()
-	// const user = await getCurrentuser();
-	const user = await getuser(userId)
+	
+	const user = await getCurrentuser();
 	// if (!user) return null
 	// const { data } = useSession()
 	// const data = await GETEVENT(params)
@@ -124,7 +119,7 @@ const DashBoardLayout = async () => {
 								</svg>
 							</div>
 							<div>
-								{published ? (<span className="block text-2xl font-bold">{published.response.length}</span>) : (<span className="block text-2xl font-bold">0</span>)}
+								<span className="block text-2xl font-bold">62</span>
 								<span className="block text-gray-500">Clicks</span>
 							</div>
 						</div>
