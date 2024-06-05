@@ -1,5 +1,5 @@
 import { TbFidgetSpinner } from "react-icons/tb"
-import { getuser } from "@/app/actions/User"
+
 // import { useSearchParams } from "next/navigation"
 // import getCurrentUser from "@/lib/session"
 // import useUser from "@/app/hooks/use-user"
@@ -10,25 +10,28 @@ import { getuser } from "@/app/actions/User"
 // import UserHero from "@/components/ui/hero"
 // import UserBio from "@/components/ui/user-bio"
 import { BiCalendar } from "react-icons/bi"
-import { getCurrentuser } from "@/app/actions/User";
+import { getCurrentuser, getuser } from "@/app/actions/User";
 // import PostItem from "@/components/cards/post-items"
 import { cappedAvatarFallback } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
 
 import { getPublishedStoryById } from "@/app/actions/getStories"
-/**  const UserId = await getCurrentUserId()
-                // if(UserId)
-                // setCurrentUserId(UserId)
+import RenderStory from "@/app/published/RenderStory";
+import { User } from "@clerk/nextjs/server"
 
-				*/
-async function ProfilePage({ params }: { params: { userId: string } }) {
+async function ProfilePage({params} : {params: {storyId: string}}) {
 	const currentUser = await getCurrentuser();
-     const PublishedStory = await getPublishedStoryById(params.userId)
-	
-	// const getUsersPost = await GET(currentUser.id)
-	// const { user, isLoading } = useUser(userId as string)
-const Author = await getuser(PublishedStory.response?.authorId)
+	//  if (!currentUser) return;
+ const PublishedStory = await getPublishedStoryById(params.storyId);
+ if(!PublishedStory.response){
+        return(
+            <div>
+                No Stories were found
+            </div>
+        )
+    }
+
 	if (!currentUser) {
 		return (
 			<div className="flex h-full items-center justify-center">
@@ -36,6 +39,10 @@ const Author = await getuser(PublishedStory.response?.authorId)
 			</div>
 		)
 	}
+
+
+	//getting specific Author
+	const Author:User = await getuser(PublishedStory.response?.authorId)
 	const formatDateTime = new Intl.DateTimeFormat(undefined, { dateStyle: "short" })
 	return (
 		<>
@@ -96,7 +103,7 @@ const Author = await getuser(PublishedStory.response?.authorId)
 								</div>
 								<div className="mt-12 text-center">
 									<h3 className="text-blueGray-700 mb-2 mb-2 text-xl font-semibold leading-normal">
-										{currentUser?.name}
+										{currentUser?.firstName}
 									</h3>
 									<div className="text-blueGray-400 mb-2 mt-0 text-sm font-bold uppercase leading-normal">
 										<i className="fas fa-map-marker-alt text-blueGray-400 mr-2 text-lg"></i>
@@ -127,13 +134,7 @@ const Author = await getuser(PublishedStory.response?.authorId)
 										</div>
 									</div>
 								</div>
-								{/* <div className="align-center flex flex-col justify-center">
-									{getUsersPost.map((data) => {
-										return (
-											<PostItem currentUser={currentUser} key={data.id} data={data} />
-										)
-									})}
-								</div> */}
+							   <RenderStory AuthorFirstName={Author.firstName} AuthorImage={Author.imageUrl} AuthorLastName={Author.lastName} PublishedStory={PublishedStory.response} />
 							</div>
 						</div>
 					</div>
