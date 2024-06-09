@@ -93,7 +93,7 @@ const SaveStoryPopUp = ({storyId,PublishStory,setShowPopUp,CurrentUserFirstName,
         {value:"Case Studies", label:"Case Studies"},
         {value:"Education", label:"Education"}
     ]
-"
+
 				
     if(!Story) return null
 
