@@ -5,15 +5,19 @@ import getCurrentUser from "@/lib/session"
 
 import BreadCrumb from "@/components/breadcrumb"
 import { KycForm } from "@/components/forms/kyc-form"
+import { getCurrentUserId, getuser } from "@/app/actions/User"
+import { User } from "@clerk/nextjs/server"
 // import SubmitForm from "@/components/Input/form-kyc"
 const KYCForm = async () => {
-	const user = await getCurrentUser()
+	// const user = await getCurrentUser()
+	const userId = await getCurrentUserId()
+	const UInfo:User = await getuser(userId)
 	const userData = {
-		id: user?.id as string,
-		name: (user?.name as string) ?? "",
-		email: (user?.email as string) ?? "",
-		bio: user ? (user?.bio as string) : "",
-		imageSrc: user ? (user?.image as string) : " ",
+		id: UInfo?.id as string,
+		name: (UInfo?.firstName as string) ?? "",
+		email: (UInfo?.emailAddresses[0].emailAddress as string) ?? "",
+		bio: UInfo ? (UInfo?.bio as string) : "",
+		imageSrc: UInfo ? (UInfo?.imageUrl as string) : " ",
 	}
 	// const content = (
 	// 	<CardHeader className="border-b border-solid border-gray-100">

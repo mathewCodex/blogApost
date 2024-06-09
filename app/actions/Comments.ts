@@ -50,6 +50,21 @@ export const NumberOfComments = async (storyId:string) => {
 
         return  {reponse: commentsNo._count || 0}
     } catch (error) {
-        return {error: "Error getting number oof comments"}
+        return {error: "Error getting number of comments"}
+    }
+}
+
+export const TotalNumberOfComments =  async (userId:string) => {
+    try{
+       const commentsNo = await prisma.comment.aggregate({
+        where: {
+            userId
+        },
+        _count: true
+       })
+       return {response: commentsNo._count || 0}
+    } catch (error)
+    {
+    return {error: "Error getting Total number of comments"}
     }
 }

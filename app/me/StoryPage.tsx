@@ -47,14 +47,14 @@ const StoryPage = ({stories,TotalDrafts,TotalPublished,TotalSaved}: Props) => {
     <div className='max-w-[1000px] mx-auto mt-12'>
         <div className='flex items-center justify-between'>
             <h1 className='text-[42px] font-semibold'>Your Stories</h1>
-            <button onClick={MakeNewStory} className='bg-green-600 hover:bg-green-700 px-4 py-[6px] rounded-full text-white text-sm'>New Story+</button>
+            <button onClick={MakeNewStory} className='bg-blue-600 hover:bg-blue-700 px-4 py-[6px] rounded-full text-white text-sm'>New Story+</button>
         </div>
         <div className='flex items-center space-x-6 border-b-[1px] mt-2'>
             <Link href='/me/drafts' className={`${path === "drafts"? "border-b-[1px] border-neutral-800 opacity-100":"opacity-60"} text-sm pb-4`}>drafts {TotalDrafts}</Link>
             <Link href='/me/published' className={`${path === "published"? "border-b-[1px] border-neutral-800 opacity-100":"opacity-60"} text-sm pb-4`}>published {TotalPublished}</Link>
             <Link href='/me/saved' className={`${path === "saved"? "border-b-[1px] border-neutral-800 opacity-100":"opacity-60"} text-sm pb-4`}>saved{TotalSaved}</Link>
         </div>
-        {path==="drafts"  && (
+        {path ==="drafts"  && (
             <div className='mt-5'>
                 {stories.map((story) => {
                     const match = story.content?.match(/<h1[^>]*>([\s\S]*?)<\/h1>/);

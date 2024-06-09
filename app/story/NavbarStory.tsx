@@ -85,12 +85,16 @@ const SaveStoryPopUp = ({storyId,PublishStory,setShowPopUp,CurrentUserFirstName,
         {value:"Artificial Intelligence", label:"Artificial Intelligence"},
         {value:"Python", label:"Python"},
         {value:"Programming", label:"Programming"},
-         {value:"Javascript", label:"Programming"},
+        {value:"Javascript", label:"Art & Culture"},
         {value:"Fashion", label:"Fashion"},
         {value:"World", label:"World"},
         {value:"Politics", label:"Politics"},
+        {value:"Research", label:"Research"},
+        {value:"Case Studies", label:"Case Studies"},
+        {value:"Education", label:"Education"}
     ]
-
+"
+				
     if(!Story) return null
 
     // first 10 words for description

@@ -31,19 +31,19 @@ type SideNavItem = {
 // mx-4 my-8 flex flex-col space-y-4
 const SideNav = () => {
 	// const { user } = GetUserData()
-	 const {  user } = useUser()
+	//  const {  user } = useUser()
 	  const {  userId } = useAuth()
 	// const { user: currentuser } = UseUser()
 //  const { data: session } = useSession();
 	const SIDENAV_ITEMS: SideNavItem[] = [
 		{
 			title: "Home",
-			path: `/profiles/user?${user?.id}`,
+			path: `/profiles/user?${userId}`,
 			icon: <BiHome size={24} />,
 		},
 		{
 			title: "Activities",
-			path: `/profiles/dashboard?${user?.id}`,
+			path: `/profiles/dashboard?${userId}`,
 			icon: <AiFillDashboard size={24} />,
 		},
 		{
@@ -72,7 +72,7 @@ const SideNav = () => {
 			subMenuItems: [
 				{
 					title: "Edit Account",
-					path: `/profiles/onBoarding?${user?.id}`,
+					path: `/profiles/onBoarding?${userId}`,
 				},
 				{ title: "Privacy", path: "/settings/privacy" },
 			],

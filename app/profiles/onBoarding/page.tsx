@@ -2,43 +2,29 @@ import React from "react"
 // import { Card, CardHeader } from "@/components/ui/card"
 // import ClientOnly from "@/components/ClientOnly"
 // import getCurrentUser from "@/lib/session"
-import { getCurrentuser } from "@/app/actions/User";
+import { getCurrentUserId, getCurrentuser } from "@/app/actions/User";
 import BreadCrumb from "@/components/breadcrumb"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { getuser } from "@/app/actions/User"
+import { User } from "@clerk/nextjs/server"
 // import AuthForm from "@/app/auth/auth-form"
 // import { redirect } from "next/navigation"
 import { CreateProfileOne } from "@/components/forms/user-profile-stepper/create-profile"
 
-const OnBoarding = async ({ params }: { params: { userId: string } }) => {
+const OnBoarding = async () => {
 	const user = await getCurrentuser();
-const Author = await getuser(params.userId)
+	const userId = await getCurrentUserId()
+ const User:User = await getuser(userId)
 	// if (user?.onBoarded) redirect(`/profiles/?${user.id}`)
-const breadcrumbItems = [{ title: "Profile", link: `/profiles/onBoarding/${user?.name}`}]
+const breadcrumbItems = [{ title: "Profile", link: `/profiles/onBoarding/${User?.firstName}`}]
 
 	const userData = {
-		id: user?.id as string,
-		name: (user?.firstName as string) ?? "",
-		email: (Author.emailAddresses[0].emailAddress as string) ?? "",
+		id: userId as string,
+		name: (User?.firstName as string) ?? "",
+		email: (User.emailAddresses[0].emailAddress as string) ?? "",
 		bio: user ? (user?.bio as string) : "",
-		imageSrc: user ? (user?.imageUrl as string) : " ",
+		imageSrc: user ? (User?.imageUrl as string) : " ",
 	}
- 
-	// if (!user) {
-	// 	return (
-	// 		<ClientOnly>
-	// 			<>Hello You you got to be a user : )</>
-	// 		</ClientOnly>
-	// 	)
-	// }
-
-	// const content = (
-	// 	<CardHeader className="border-b border-solid border-gray-100">
-	// 		<h2 className="scroll-m-20 border-b pb-2 text-3xl font-semibold tracking-tight first:mt-0">
-	// 			Welcome lets help you get started
-	// 		</h2>
-	// 	</CardHeader>
-	// )
 	return (
 		<div>
 			{/* <div className="flex min-h-screen w-screen items-center justify-center ">

@@ -1,37 +1,25 @@
 import { TbFidgetSpinner } from "react-icons/tb"
-
-// import { useSearchParams } from "next/navigation"
-// import getCurrentUser from "@/lib/session"
-// import useUser from "@/app/hooks/use-user"
-// import { Avatar } from "@/components/ui/avatar"
-// import { cappedAvatarFallback } from "@/lib/utils"
-// import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar"
-// import GET from "@/app/api/get-mypost/[route]"
-// import UserHero from "@/components/ui/hero"
-// import UserBio from "@/components/ui/user-bio"
 import { BiCalendar } from "react-icons/bi"
-import { getCurrentuser, getuser } from "@/app/actions/User";
-// import PostItem from "@/components/cards/post-items"
+import { getCurrentUserId, getCurrentuser } from "@/app/actions/User";
 import { cappedAvatarFallback } from "@/lib/utils"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Link from "next/link"
-
-import { getPublishedStoryById } from "@/app/actions/getStories"
-import RenderStory from "@/app/published/RenderStory";
-import { User } from "@clerk/nextjs/server"
-
-async function ProfilePage({params} : {params: {storyId: string}}) {
+// import { getPublishedStoryById } from "@/app/actions/getStories"
+// import { User } from "@clerk/nextjs/server"
+import { getPublishedStory } from "@/app/actions/me";
+import MyStoryPage from "@/components/myPublishedStory/page";
+import { NumberFollowers } from "@/app/actions/Following";
+import { TotalNumberOfComments} from "@/app/actions/Comments";
+//the userId is equivalent to storyId I just called it userId since it rendering the content on the profile....
+async function ProfilePage() {
 	const currentUser = await getCurrentuser();
-	//  if (!currentUser) return;
- const PublishedStory = await getPublishedStoryById(params.storyId);
- if(!PublishedStory.response){
-        return(
-            <div>
-                No Stories were found
-            </div>
-        )
-    }
+	  const published = await getPublishedStory();
+	    // const commentResult = await getAllComments(params.userId)
 
+	  //current user Id
+	const userId = await getCurrentUserId()
+	const totalFollowers = await NumberFollowers(userId)
+    const commentResult = await TotalNumberOfComments(userId)
 	if (!currentUser) {
 		return (
 			<div className="flex h-full items-center justify-center">
@@ -42,7 +30,7 @@ async function ProfilePage({params} : {params: {storyId: string}}) {
 
 
 	//getting specific Author
-	const Author:User = await getuser(PublishedStory.response?.authorId)
+	// const Author:User = await getuser(PublishedStory.response?.authorId)
 	const formatDateTime = new Intl.DateTimeFormat(undefined, { dateStyle: "short" })
 	return (
 		<>
@@ -57,7 +45,7 @@ async function ProfilePage({params} : {params: {storyId: string}}) {
 											{currentUser && (
 												<Avatar className=" h-48 w-48 rounded-full">
 													<AvatarImage
-														src={Author.imageUrl ?? ""}
+														src={currentUser.imageUrl ?? ""}
 														alt={currentUser.firstName?? "currentUser name"}
 													/>
 													<AvatarFallback className="font-bold">
@@ -73,19 +61,26 @@ async function ProfilePage({params} : {params: {storyId: string}}) {
 										<div className="flex justify-center py-4 pt-8 lg:pt-4">
 											<div className="mr-4 p-3 text-center">
 												<span className="text-blueGray-600 block text-xl font-bold uppercase tracking-wide">
-													22
+													{
+														totalFollowers &&
+														totalFollowers.followers 
+														
+													}
 												</span>
-												<span className="text-blueGray-400 text-sm">Views</span>
+												<span className="text-blueGray-400 text-sm">Followers</span>
 											</div>
 											<div className="mr-4 p-3 text-center">
 												<span className="text-blueGray-600 block text-xl font-bold uppercase tracking-wide">
-													10
+													Total Published
+													{published ?
+													published.response.length : "0"
+												}
 												</span>
 												<span className="text-blueGray-400 text-sm">Posts</span>
 											</div>
 											<div className="p-3 text-center lg:mr-4">
 												<span className="text-blueGray-600 block text-xl font-bold uppercase tracking-wide">
-													89
+													{commentResult ? commentResult.response.length : "0"}
 												</span>
 												<span className="text-blueGray-400 text-sm">Comments</span>
 											</div>
@@ -132,9 +127,16 @@ async function ProfilePage({params} : {params: {storyId: string}}) {
 												<Link href={`/profiles/onBoarding?${currentUser.id}`}>Edit</Link>
 											</a>
 										</div>
+										{published ? <MyStoryPage stories={published.response} TotalPublished={published.response.length} /> : 
+										 <div>  
+										You dont have any stories published yet        
+										</div>
+										
+									}
+										
 									</div>
 								</div>
-							   <RenderStory AuthorFirstName={Author.firstName} AuthorImage={Author.imageUrl} AuthorLastName={Author.lastName} PublishedStory={PublishedStory.response} />
+							   
 							</div>
 						</div>
 					</div>

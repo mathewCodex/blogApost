@@ -70,3 +70,40 @@ export const ClapCountByUser = async (storyId:string, commentId?:string) => {
         return 0
     }
 }
+
+export const UserTotalClap = async ( commentId?:string) => {
+    const userId = await getCurrentUserId()
+    if(!userId) throw new Error("No logged user")
+
+    try {
+        if(!commentId){
+            const Clap = await prisma.clap.aggregate({
+                where:{
+                  
+                    userId,
+                    commentId:null
+                },
+                _sum:{
+                    clapCount:true
+                }
+            })
+            
+            return  {claps: JSON.parse(JSON.stringify(Clap._sum?.clapCount || 0))} ;
+        }
+
+        const Clap = await prisma.clap.aggregate({
+            where:{
+               
+                userId,
+                commentId
+            },
+            _sum:{
+                clapCount:true
+            }
+        })
+
+        return  {claps : JSON.parse(JSON.stringify(Clap._sum?.clapCount || 0))} ;
+    } catch (error) {
+        return 0
+    }
+}

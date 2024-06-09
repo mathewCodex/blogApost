@@ -84,6 +84,7 @@ model Story {
   id           String   @id @default(auto()) @map("_id")  @db.ObjectId
   authorId     String
   content      String?
+  bio          String?
   topics       String[]
   publish      Boolean  @default(false)
   createdAt    DateTime @default(now())

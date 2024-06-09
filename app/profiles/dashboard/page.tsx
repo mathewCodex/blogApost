@@ -4,28 +4,26 @@ import { AiOutlineHeart } from "react-icons/ai"
 // import GET from "@/app/api/[get-mypost]/route"
 import ClientOnly from "@/components/ClientOnly"
 
-import { getCurrentuser } from "@/app/actions/User";
-// import useSWR from "swr"
-// import { useSession } from "next-auth/react"
-// import SideNav from "../side-nav/page"
-
-// const fetcher = async (url: any) => {
-// 	const res = await fetch(url)
-
-// 	const data = await res.json()
-
-// 	if (!res.ok) {
-// 		const error = new Error(data.message)
-// 		throw error
-// 	}
-
-// 	return data
-// }
-// { params }: { params: string }
-const DashBoardLayout = async () => {
+import { getCurrentUserId, getCurrentuser, getuser } from "@/app/actions/User";
+import { TotalComment, TotalNumberOfComments, getAllComments } from "@/app/actions/Comments";
+import { NumberFollowers } from "@/app/actions/Following";
+import { getPublishedStory } from "@/app/actions/me";
+import { ClapCount, UserTotalClap } from "@/app/actions/Clap";
+import { User } from "@clerk/nextjs/server"
+//the userId is equivalent to storyId I just called it userId since it rendering the content on the profile....
+const DashBoardLayout = async ({params}:{params: {userId: string}}) => {
 	// const { data: user } = useSession()
-	
+	const userId = await getCurrentUserId()
 	const user = await getCurrentuser();
+	 const User:User = await getuser(userId)
+	//   const published = await getPublishedStory();
+	 const commentResult = await TotalNumberOfComments(userId)
+	 const  TotalClaps = await UserTotalClap()
+	
+	  //current user Id
+	
+
+	const totalFollowers = await NumberFollowers(userId)
 	// if (!user) return null
 	// const { data } = useSession()
 	// const data = await GETEVENT(params)
@@ -58,15 +56,7 @@ const DashBoardLayout = async () => {
 	}
 
 	const timeOfDay = getCurrentTimeOfDay()
-	// console.log(`It's currently ${timeOfDay}.`)
 
-	// if (!data) {
-	// 	return (
-	// 		<ClientOnly>
-
-	// 		</ClientOnly>
-	// 	)
-	// }
 	return (
 		<>
 			<ClientOnly>
@@ -74,9 +64,11 @@ const DashBoardLayout = async () => {
 					<div className=" flex flex-col justify-between space-y-6  md:flex-row md:space-y-0">
 						<div className="mr-6">
 							<h1 className="mb-2 text-4xl font-semibold">{timeOfDay}</h1>
-							<h2 className="ml-0.5 text-gray-600">
+							<h2 className="ml-0.5 text-gray-600 text-3xl font-semibold">
 								{" "}
-								<span className="font-semi-bold text-2xl">Welcome back</span>,{user?.firstName}
+								<span className="font-semi-bold text-2xl">Welcome back</span>,
+
+								{user?.firstName}
 							</h2>
 						</div>
 						<div className="-mb-3 flex flex-wrap items-start justify-end">
@@ -119,8 +111,12 @@ const DashBoardLayout = async () => {
 								</svg>
 							</div>
 							<div>
-								<span className="block text-2xl font-bold">62</span>
-								<span className="block text-gray-500">Clicks</span>
+								<span className="block text-2xl font-bold">
+									{
+										TotalClaps ? TotalClaps.claps : "0"
+									}
+								</span>
+								<span className="block text-gray-500">Total Likes</span>
 							</div>
 						</div>
 						<div className="flex items-center rounded-lg bg-accent p-8 shadow">
@@ -141,8 +137,11 @@ const DashBoardLayout = async () => {
 								</svg>
 							</div>
 							<div>
-								<span className="block text-2xl font-bold">6.8</span>
-								<span className="block text-gray-500">Impressions</span>
+								<span className="block text-2xl font-bold">{
+									totalFollowers ? totalFollowers.followers :
+									"0"
+								}</span>
+								<span className="block text-gray-500">followers</span>
 							</div>
 						</div>
 						<div className="flex items-center rounded-lg bg-accent p-8 shadow">
@@ -188,7 +187,10 @@ const DashBoardLayout = async () => {
 								</svg>
 							</div>
 							<div>
-								<span className="text-gray-600">No Comments</span>
+								<span className="text-gray-600">{
+									commentResult ? commentResult.response.length :
+									"No comments"
+								}</span>
 							</div>
 						</div>
 					</section>
@@ -211,7 +213,9 @@ const DashBoardLayout = async () => {
 								</div>
 								<div>
 									<div>
-										<span className="text-gray-500">No Likes</span>
+										<span className="text-gray-500">{
+										TotalClaps ? TotalClaps.claps : "0"
+									}</span>
 									</div>
 								</div>
 							</div>
